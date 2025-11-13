@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Meal Mate</string>
+    <string name="meal_mate">MealMate</string>
+    <string name="about_meal"><![CDATA[Your Easy Meal & Grocery Planner]]></string>
+    <string name="welcome">Welcome back</string>
+    <string name="email_hint">Enter the Email</string>
+    <string name="password_hint">Enter the Password</string>
+    <string name="login_content"><![CDATA[Password must be atleast 8 character with upperCase , lowercase, number & special character]]></string>
+    <string name="register">Register</string>
+    <string name="create_account">Create a new account</string>
+    <string name="username_hint">Username</string>
+    <string name="confirm_password_hint">Confirm password</string>
+</resources>
