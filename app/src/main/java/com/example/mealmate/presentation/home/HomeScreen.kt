@@ -49,13 +49,11 @@ fun HomeScreen(
             )
         }
     ) { innerPadding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // Tabs
             TabRow(selectedTabIndex = selectedIndex) {
                 tabs.forEachIndexed { index, title ->
                     Tab(
@@ -65,7 +63,6 @@ fun HomeScreen(
                     )
                 }
             }
-
             when (selectedIndex) {
                 0 -> ForYouScreen(navController)
                 1 -> MyRecipie(navController)

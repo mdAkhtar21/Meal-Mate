@@ -18,14 +18,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DetailAppBar(){
+fun DetailAppBar(
+    name:String,
+    onClick:()->Unit,
+    ingredeintNumber:Int
+
+){
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp, bottom = 20.dp)
+            .padding(top = 40.dp, bottom = 20.dp)
     ) {
         IconButton(
-            onClick = {}
+            onClick = onClick
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
@@ -34,13 +39,13 @@ fun DetailAppBar(){
         }
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = "Name of Recipe",
+                text = "${name}",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = "0 ingredients"
+                text = "${ingredeintNumber} ingredients"
             )
         }
     }

@@ -20,7 +20,9 @@ class DetailViewModel @Inject constructor(
     fun loadRecipeDetails(recipeId:Long){
         viewModelScope.launch {
             val details=getRecipeDetailUseCase(recipeId)
+            println("DEBUG: loadRecipeDetails -> $details")
             recipeDetail.value=details
+
         }
     }
 }

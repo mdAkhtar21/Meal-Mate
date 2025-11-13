@@ -26,15 +26,13 @@ fun NavGraph(navController: NavHostController) {
 
     NavHost(
         navController = navController,
-        startDestination = "auth_graph" // 👈 Start with login flow
+        startDestination = "home_graph"
     ) {
-        // 🔹 Nested Graphs
-        authNavGraph(navController)
         homeNavGraph(navController)
+        authNavGraph(navController)
         planNavGraph(navController)
         listNavGraph(navController)
 
-        // 🔹 Common or extra screens
         composable(Screen.MessageScreen.route) {
             MessageScreen(navController = navController)
         }
