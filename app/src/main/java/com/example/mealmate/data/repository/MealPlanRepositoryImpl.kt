@@ -4,6 +4,8 @@ import com.example.mealmate.data.local.MealPlan.MealPlanDao
 import com.example.mealmate.data.local.MealPlan.MealPlanEntity
 import com.example.mealmate.domain.model.MealPlan
 import com.example.mealmate.domain.repository.MealPlanRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class MealPlanRepositoryImpl @Inject constructor(
@@ -16,10 +18,11 @@ class MealPlanRepositoryImpl @Inject constructor(
                 id = domain.id,
                 recipeId = domain.recipeId,
                 mealType = domain.mealType,
-                day = domain.day
+                day = domain.day,
+                userId = domain.userId
             )
         }
-        return dao.insertMealPlans(entities) // list of rowIds, -1 => ignored due to uniqueness
+        return dao.insertMealPlans(entities)
     }
 
     override suspend fun getMealPlans(): List<MealPlan> {
@@ -28,7 +31,8 @@ class MealPlanRepositoryImpl @Inject constructor(
                 id = it.id,
                 recipeId = it.recipeId,
                 mealType = it.mealType,
-                day = it.day
+                day = it.day,
+                userId = it.userId
             )
         }
     }
@@ -39,7 +43,8 @@ class MealPlanRepositoryImpl @Inject constructor(
                 id = it.id,
                 recipeId = it.recipeId,
                 mealType = it.mealType,
-                day = it.day
+                day = it.day,
+                userId = it.userId
             )
         }
     }
@@ -62,8 +67,15 @@ class MealPlanRepositoryImpl @Inject constructor(
                 id = it.id,
                 recipeId = it.recipeId,
                 mealType = it.mealType,
-                day = it.day
+                day = it.day,
+                userId = it.userId
             )
+        }
+    }
+
+    override fun getMealPlansFlow(): Flow<List<MealPlan>> {
+        return dao.getMealPlansFlow().map { list ->
+            list.map { it.toDomain() }
         }
     }
 
@@ -72,8 +84,19 @@ class MealPlanRepositoryImpl @Inject constructor(
            id = mealPlan.id,
            recipeId = mealPlan.recipeId,
            mealType = mealPlan.mealType,
-           day = mealPlan.day
+           day = mealPlan.day,
+           userId = mealPlan.userId
        )
         dao.updateMealPlans(entity)
     }
+}
+
+fun MealPlanEntity.toDomain(): MealPlan {
+    return MealPlan(
+        id = this.id,
+        recipeId = this.recipeId,
+        mealType = this.mealType,
+        day = this.day,
+        userId = this.userId
+    )
 }

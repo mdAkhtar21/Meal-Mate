@@ -1,7 +1,9 @@
 package com.example.mealmate.data.repository
 
-import com.example.mealmate.data.local.AddRecipe.RecipeSource
-import com.example.mealmate.data.local.AddRecipe.RecipeSourceDao
+import com.example.mealmate.data.Mapper.toDomain
+import com.example.mealmate.data.local.RecipeSource.RecipeSourceEntity
+import com.example.mealmate.data.local.RecipeSource.RecipeSourceDao
+import com.example.mealmate.domain.model.RecipeSource
 import com.example.mealmate.domain.repository.RecipeSourceRepository
 import javax.inject.Inject
 
@@ -11,7 +13,15 @@ class RecipeSourceRepositoryImpl @Inject constructor(
 
     // Add a source (pre or post recipe)
     override suspend fun addSource(source: RecipeSource) {
-        dao.insertSource(source)
+        val entity=RecipeSourceEntity(
+            sourceId=source.sourceId,
+            tempKey=source.tempKey,
+            recipeId=source.recipeId,
+            name = source.name,
+            url = source.url
+        )
+
+        dao.insertSource(entity)
     }
 
     // Delete by tempKey (pre-recipe) or recipeId (post-recipe)
@@ -30,11 +40,11 @@ class RecipeSourceRepositoryImpl @Inject constructor(
 
     // Get sources for post-recipe
     override suspend fun getSourcesForRecipe(recipeId: Long): List<RecipeSource> {
-        return dao.getSourcesForRecipe(recipeId)
+        return dao.getSourcesForRecipe(recipeId).map { it.toDomain() }
     }
 
     // Get sources for pre-recipe (tempKey)
     override suspend fun getSourcesForTempKey(tempKey: Long): List<RecipeSource> {
-        return dao.getSourcesForTempKey(tempKey)
+        return dao.getSourcesForTempKey(tempKey).map { it.toDomain() }
     }
 }

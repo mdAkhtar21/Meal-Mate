@@ -27,6 +27,12 @@ fun RecipeSourceBottomSheet(
     var name by remember { mutableStateOf("") }
     var url by remember { mutableStateOf("") }
 
+    LaunchedEffect(showBottomSheet.value) {
+        if(showBottomSheet.value){
+            viewModel.loadSources(tempKey)
+        }
+    }
+
     if (showBottomSheet.value) {
         ModalBottomSheet(
             onDismissRequest = { showBottomSheet.value = false },

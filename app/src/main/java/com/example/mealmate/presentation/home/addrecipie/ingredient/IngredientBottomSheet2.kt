@@ -44,7 +44,7 @@ fun IngredientBottomSheet2(
     sheetState: SheetState,
     scope: CoroutineScope,
     showBottomSheet: MutableState<Boolean>,
-    showNextSheet: MutableState<Boolean> // New state for next sheet
+    showNextSheet: MutableState<Boolean>
 ) {
     val viewModel: IngredientViewModel = hiltViewModel()
     var expanded by remember { mutableStateOf(false) }
@@ -63,127 +63,117 @@ fun IngredientBottomSheet2(
             onDismissRequest = { showBottomSheet.value = false },
             sheetState = sheetState
         ) {
-            // If the next sheet should show, render it
-            if (showNextSheet.value) {
-                IngredientBottomSheet(
-                    sheetState = sheetState,
-                    scope = scope,
-                    showIngredientSheet = showBottomSheet,
-                    tempKey = tempKey
-                )
-            } else {
                 // Current sheet content
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight(0.5f)
-                        .fillMaxWidth()
-                        .padding(16.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(0.5f)
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = "Add Ingredient",
+                    style = MaterialTheme.typography.headlineSmall,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Dropdown
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded }
                 ) {
-                    Text(
-                        text = "Add Ingredient",
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = Color.Black
+                    TextField(
+                        value = selectedOption,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("Ingredient Category") },
+                        trailingIcon = {
+                            Icon(
+                                imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.ArrowDropDown,
+                                contentDescription = null
+                            )
+                        },
+                        modifier = Modifier.menuAnchor().fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    // Dropdown
-                    ExposedDropdownMenuBox(
+                    ExposedDropdownMenu(
                         expanded = expanded,
-                        onExpandedChange = { expanded = !expanded }
+                        onDismissRequest = { expanded = false }
                     ) {
-                        TextField(
-                            value = selectedOption,
-                            onValueChange = {},
-                            readOnly = true,
-                            label = { Text("Ingredient Category") },
-                            trailingIcon = {
-                                Icon(
-                                    imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.ArrowDropDown,
-                                    contentDescription = null
-                                )
-                            },
-                            modifier = Modifier.menuAnchor().fillMaxWidth()
-                        )
-
-                        ExposedDropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            options.forEach { option ->
-                                DropdownMenuItem(
-                                    text = { Text(option, style = MaterialTheme.typography.bodyMedium) },
-                                    onClick = {
-                                        selectedOption = option
-                                        expanded = false
-                                    }
-                                )
-                            }
+                        options.forEach { option ->
+                            DropdownMenuItem(
+                                text = { Text(option, style = MaterialTheme.typography.bodyMedium) },
+                                onClick = {
+                                    selectedOption = option
+                                    expanded = false
+                                }
+                            )
                         }
                     }
+                }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-                    // Name input
-                    OutlinedTextField(
-                        value = name,
-                        onValueChange = { name = it },
-                        label = { Text("Ingredient Name") },
-                        modifier = Modifier.fillMaxWidth(),
-                        placeholder = { Text("Enter the name") },
-                        singleLine = true,
-                        textStyle = MaterialTheme.typography.bodyMedium,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Done
-                        )
+                // Name input
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Ingredient Name") },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text("Enter the name") },
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done
                     )
+                )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-                    // Measurement input
-                    OutlinedTextField(
-                        value = measurement,
-                        onValueChange = { measurement = it },
-                        label = { Text("Measurement") },
-                        modifier = Modifier.fillMaxWidth(),
-                        placeholder = { Text("Enter the Unit") },
-                        singleLine = true,
-                        textStyle = MaterialTheme.typography.bodyMedium,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number,
-                            imeAction = ImeAction.Done
-                        )
+                // Measurement input
+                OutlinedTextField(
+                    value = measurement,
+                    onValueChange = { measurement = it },
+                    label = { Text("Measurement") },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text("Enter the Unit") },
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
                     )
+                )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-                    // Add button
-                    Button(
-                        onClick = {
-                            if (name.isNotEmpty() && measurement.isNotEmpty()) {
+                // Add button
+                Button(
+                    onClick = {
+                        if (name.isNotEmpty() && measurement.isNotEmpty()) {
 
-                                viewModel.addIngredient(
-                                    tempKey = tempKey,
-                                    name=name,
-                                    category = selectedOption,
-                                    measurement=measurement
-                                )
-                                showBottomSheet.value = false
-                                // 3️⃣ Open next sheet
-                                showNextSheet.value = true
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text(
-                            text = "Add",
-                            style = MaterialTheme.typography.titleMedium,
-                            color = Color.White
-                        )
-                    }
+                            viewModel.addIngredient(
+                                tempKey = tempKey,
+                                name=name,
+                                category = selectedOption,
+                                measurement=measurement
+                            )
+                            showBottomSheet.value = false
+                            // 3️⃣ Open next sheet
+                            showNextSheet.value = true
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text(
+                        text = "Add",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color.White
+                    )
                 }
             }
         }

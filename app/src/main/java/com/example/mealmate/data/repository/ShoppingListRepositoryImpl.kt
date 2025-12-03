@@ -19,7 +19,8 @@ class ShoppingListRepositoryImpl @Inject constructor(
             categoryName = shoppingListItem.categoryName,
             quantity = shoppingListItem.quantity,
             comment = shoppingListItem.comment?:"",
-            isChecked = shoppingListItem.isChecked
+            isChecked = shoppingListItem.isChecked,
+            userId = shoppingListItem.userId
         )
         shoppingListDao.insertIngredient(entity)
     }
@@ -32,7 +33,8 @@ class ShoppingListRepositoryImpl @Inject constructor(
             categoryName = shoppingListItem.categoryName,
             quantity = shoppingListItem.quantity,
             comment = shoppingListItem.comment?:"",
-            isChecked = shoppingListItem.isChecked
+            isChecked = shoppingListItem.isChecked,
+            userId = shoppingListItem.userId
         )
         shoppingListDao.updateShoppingList(entity)
     }
@@ -48,7 +50,8 @@ class ShoppingListRepositoryImpl @Inject constructor(
                         categoryName = entity.categoryName,
                         quantity = entity.quantity,
                         comment = entity.comment,
-                        isChecked = entity.isChecked
+                        isChecked = entity.isChecked,
+                        userId = entity.userId
                     )
                 }
             }
@@ -56,6 +59,10 @@ class ShoppingListRepositoryImpl @Inject constructor(
 
     override suspend fun delete(id: Long) {
         shoppingListDao.deleteShoppingListItem(id)
+    }
+
+    override suspend fun deleteAll() {
+        shoppingListDao.deleteAllShoppingListItems()
     }
 
 }

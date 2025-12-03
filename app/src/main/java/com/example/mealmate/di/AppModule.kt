@@ -4,18 +4,24 @@ import android.content.Context
 import androidx.room.Room
 import com.example.mealmate.data.datastore.UserPreferences
 import com.example.mealmate.data.local.AddRecipe.*
+import com.example.mealmate.data.local.Ingredient.IngredientDao
+import com.example.mealmate.data.local.Instruction.InstructionDao
 import com.example.mealmate.data.local.MealPlan.MealPlanDao
-import com.example.mealmate.data.local.UserDao
+import com.example.mealmate.data.local.RecipeSource.RecipeSourceDao
+import com.example.mealmate.data.local.Auth.UserDao
 import com.example.mealmate.data.local.UserDatabase
 import com.example.mealmate.data.local.shoppinglist.ShoppingListDao
 import com.example.mealmate.data.repository.*
 import com.example.mealmate.domain.repository.*
+import com.example.mealmate.domain.usecase.GetRecipesByUserUseCase
 import com.example.mealmate.domain.usecase.IngredientUseCase.*
 import com.example.mealmate.domain.usecase.InstructionUseCase.*
 import com.example.mealmate.domain.usecase.LoginUserUseCase
+import com.example.mealmate.domain.usecase.LogoutUserUseCase
 import com.example.mealmate.domain.usecase.RecipeSource.*
 import com.example.mealmate.domain.usecase.RecipeUsecase.*
 import com.example.mealmate.domain.usecase.RegisterUserUseCase
+import com.example.mealmate.domain.usecase.ShoppingListItem.DeleteAllShoppingListItem
 import com.example.mealmate.domain.usecase.ShoppingListItem.DeleteShoppingListItemUseCase
 import com.example.mealmate.domain.usecase.ShoppingListItem.GetAllShoppingListItemUseCase
 import com.example.mealmate.domain.usecase.ShoppingListItem.UpdateShoppingListItemUseCase
@@ -26,6 +32,7 @@ import com.example.mealmate.domain.usecase.mealPlanUsecase.GetMealPlansUseCase
 import com.example.mealmate.domain.usecase.mealPlanUsecase.InsertMealPlansUseCase
 import com.example.mealmate.domain.usecase.mealPlanUsecase.UpdateMealPlanUseCase
 import com.example.mealmate.domain.usecase.ShoppingListItem.InsertShoppingListItemUseCase
+import com.example.mealmate.domain.usecase.mealPlanUsecase.GetMealPlansGroupedByDayUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -93,7 +100,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRecipeRepository(recipeDao: RecipeDao,ingredientDao: IngredientDao,instructionDao: InstructionDao,sourceDao: RecipeSourceDao): RecipeRepository =
+    fun provideRecipeRepository(recipeDao: RecipeDao, ingredientDao: IngredientDao, instructionDao: InstructionDao, sourceDao: RecipeSourceDao): RecipeRepository =
         RecipeRepositoryImpl(recipeDao,ingredientDao,instructionDao,sourceDao)
 
     @Provides
@@ -133,6 +140,10 @@ object AppModule {
     fun provideRegisterUserUseCase(repository: UserRepository): RegisterUserUseCase =
         RegisterUserUseCase(repository)
 
+    @Provides
+    @Singleton
+    fun provideLogoutUserUseCase(repository: LoginRepository): LogoutUserUseCase=
+        LogoutUserUseCase(repository)
     // Recipe UseCases
     @Provides
     @Singleton
@@ -153,6 +164,11 @@ object AppModule {
     @Singleton
     fun provideDeleteRecipeUseCase(repository: RecipeRepository): DeleteRecipeUseCase =
         DeleteRecipeUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetRecipesByUserUseCase(repository: RecipeRepository):GetRecipesByUserUseCase=
+        GetRecipesByUserUseCase(repository)
 
     // Ingredient UseCases
     @Provides
@@ -231,6 +247,11 @@ object AppModule {
     fun provideUpdateMealPlanUseCase(repository: MealPlanRepository):UpdateMealPlanUseCase=
         UpdateMealPlanUseCase(repository)
 
+    @Provides
+    @Singleton
+    fun provideGetMealPlansGroupedByDayUseCase(repository:MealPlanRepository): GetMealPlansGroupedByDayUseCase=
+        GetMealPlansGroupedByDayUseCase(repository)
+
     // ShoppingListItem UseCases
 
     @Provides
@@ -253,4 +274,11 @@ object AppModule {
     @Singleton
     fun provideDeleteShoppingListItemUseCase(repository:ShoppingListRepository): DeleteShoppingListItemUseCase =
         DeleteShoppingListItemUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideDeleteAllShoppingListItemUseCase(repository: ShoppingListRepository): DeleteAllShoppingListItem=
+        DeleteAllShoppingListItem(repository)
+
+
 }

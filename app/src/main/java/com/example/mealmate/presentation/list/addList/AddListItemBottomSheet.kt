@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.list
+package com.example.mealmate.presentation.list.addList
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mealmate.domain.model.ShoppingListItem
+import com.example.mealmate.presentation.list.ListViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -153,6 +154,7 @@ fun AddListItemBottomSheet(
                             viewModel.insertShoppingListItem(
                                 ShoppingListItem(
                                     id = 0L,
+                                    userId = 0L,
                                     recipeId = 0L,
                                     ingredientName = name,
                                     categoryName = selectedCategory,

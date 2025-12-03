@@ -1,6 +1,10 @@
 package com.example.mealmate.data.local.AddRecipe
 
 import androidx.room.*
+import com.example.mealmate.data.local.Ingredient.IngredientTableEntity
+import com.example.mealmate.data.local.Instruction.InstructionTableEntity
+import com.example.mealmate.data.local.RecipeSource.RecipeSourceEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecipeDao {
@@ -8,6 +12,10 @@ interface RecipeDao {
     // ─── Basic CRUD ───────────────────────────
     @Insert
     suspend fun insertRecipe(recipe: RecipeTableEntity): Long
+
+    @Query("SELECT * FROM recipes WHERE userId = :id")
+    fun getRecipesByUser(id: Long): Flow<List<RecipeTableEntity>>
+
 
     @Update
     suspend fun updateRecipe(recipe: RecipeTableEntity)
@@ -27,7 +35,7 @@ interface RecipeDao {
         recipe: RecipeTableEntity,
         ingredients: List<IngredientTableEntity>,
         instructions: List<InstructionTableEntity>,
-        sources: List<RecipeSource>
+        sources: List<RecipeSourceEntity>
     ): Long {
         val recipeId = insertRecipe(recipe)
         val ingredientsWithId = ingredients.map {
@@ -63,7 +71,7 @@ interface RecipeDao {
     suspend fun insertInstructions(instructions: List<InstructionTableEntity>)
 
     @Insert
-    suspend fun insertSources(sources: List<RecipeSource>)
+    suspend fun insertSources(sources: List<RecipeSourceEntity>)
 
     // Methods for FullRecipeDetail
     @Query("SELECT * FROM ingredients WHERE recipeId = :recipeId")
@@ -74,5 +82,5 @@ interface RecipeDao {
 
     // Fix here: use correct table name
     @Query("SELECT * FROM recipe_sources WHERE recipeId = :recipeId")
-    suspend fun getSourcesForRecipe(recipeId: Long): List<RecipeSource>
+    suspend fun getSourcesForRecipe(recipeId: Long): List<RecipeSourceEntity>
 }

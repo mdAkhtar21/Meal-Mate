@@ -1,11 +1,12 @@
-package com.example.mealmate.data.local.AddRecipe
+package com.example.mealmate.data.local.Instruction
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.mealmate.data.local.AddRecipe.RecipeTableEntity
 
 @Entity(
-    tableName = "ingredients",
+    tableName = "instructions",
     foreignKeys = [
         ForeignKey(
             entity = RecipeTableEntity::class,
@@ -15,12 +16,11 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class IngredientTableEntity(
+data class InstructionTableEntity(
     @PrimaryKey(autoGenerate = true)
-    val ingredientId: Long = 0L,
-    var recipeId: Long? = null, // nullable until recipe is created
-    val tempKey: Long? = null,
-    val name: String,
-    val category: String,
-    val measurement: String
+    val instructionId: Long = 0L,
+    val tempKey: Long? = null,  // ✅ make nullable
+    var recipeId: Long? = null,
+    val step: Int,
+    val description: String
 )

@@ -37,8 +37,10 @@ fun InstructionBottomSheet(
     val instructions by viewModel.instructions.collectAsState()
     var editInstruction by remember { mutableStateOf<Instruction?>(null) }
 
-    LaunchedEffect(tempKey) {
-        viewModel.loadInstructions(tempKey)
+    LaunchedEffect(showBottomSheet.value) {
+        if (showBottomSheet.value){
+            viewModel.loadInstructions(tempKey)
+        }
     }
 
     if (showBottomSheet.value) {

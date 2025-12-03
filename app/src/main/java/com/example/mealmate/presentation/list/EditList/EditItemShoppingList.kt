@@ -1,12 +1,10 @@
-package com.example.mealmate.presentation.list
+package com.example.mealmate.presentation.list.EditList
 
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -45,8 +43,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mealmate.domain.model.ShoppingListItem
-import com.example.mealmate.presentation.detailScreen.DetailViewModel
 import com.example.mealmate.presentation.home.addrecipie.AddRecipeViewModel
+import com.example.mealmate.presentation.home.foryouscreen.StaticRecipeStore
+import com.example.mealmate.presentation.list.ListViewModel
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -60,6 +59,7 @@ fun EditItemShoppingList(
     viewmodelrecipe:AddRecipeViewModel= hiltViewModel(),
     itemToEdit: ShoppingListItem,
 )  {
+
     var expanded by remember { mutableStateOf(false) }
     var name by remember { mutableStateOf(itemToEdit.ingredientName) }
     var quantity by remember { mutableStateOf(itemToEdit.quantity) }
@@ -67,7 +67,15 @@ fun EditItemShoppingList(
     var selectedCategory by remember { mutableStateOf(itemToEdit.categoryName) }
 
     val recipesList by viewmodelrecipe.recipes.collectAsState()
-    val selectedRecipe = recipesList.find { it.recipeId == itemToEdit.recipeId }
+    val recipeId = itemToEdit.recipeId
+
+    val staticData = StaticRecipeStore.staticRecipes
+        .find { it.recipe.recipeId == recipeId }
+
+    val dbRecipe = recipesList.find { it.recipeId == recipeId }
+
+    val selectedRecipe = dbRecipe ?: staticData?.recipe
+
 
 
 

@@ -2,7 +2,6 @@ package com.example.mealmate.presentation.detailScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mealmate.R
-import com.example.mealmate.data.local.AddRecipe.IngredientTableEntity
 import com.example.mealmate.domain.model.Ingredient
 
 
@@ -67,7 +62,10 @@ fun IngredeintTabScreen(
                 tint = Color.Black,
                 modifier = Modifier.size(20.dp)
             )
+
             Spacer(modifier = Modifier.width(10.dp))
+
+
             Text(
                 text = "${recipeDetail?.recipe?.preprationTime} prepration Time",
                 style = MaterialTheme.typography.bodyMedium,
@@ -76,6 +74,7 @@ fun IngredeintTabScreen(
             )
 
             Spacer(modifier = Modifier.width(20.dp))
+
             Icon(
                 painter = painterResource(id = R.drawable.pan),
                 contentDescription = null,
@@ -99,27 +98,17 @@ fun IngredeintTabScreen(
         )
         Spacer(modifier=Modifier.height(10.dp))
 
-        // --- Ingredients List ---
         Column(modifier = Modifier.fillMaxWidth()) {
             ingredients.forEach { ingredient ->
                 ingredeintlistItem(ingredient)
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }
-
-//        LazyColumn(
-//            modifier = Modifier.fillMaxSize(),
-//            contentPadding = PaddingValues(vertical = 8.dp)
-//        ) {
-//            items(ingredients.size) {index->
-//                ingredeintlistItem(ingredients[index])
-//            }
-//        }
     }
 }
 
 @Composable
-fun ingredeintlistItem(ingredient: IngredientTableEntity){
+fun ingredeintlistItem(ingredient: Ingredient){
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,

@@ -1,4 +1,4 @@
-package com.example.mealmate.data.local.AddRecipe
+package com.example.mealmate.data.local.Instruction
 
 
 import androidx.room.*

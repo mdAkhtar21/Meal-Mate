@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class ShoppingListTable(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val recipeId: Long,
+    val userId: Long,
     val ingredientName: String,
     val categoryName:String,
     val quantity: String,

@@ -7,16 +7,14 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "meal_plan",
-    indices = [Index(value = ["recipeId", "day"], unique = true)] // uniqueness on recipeId+day
+    indices = [Index(value = ["userId", "recipeId", "day", "meal_type"], unique = true)]
 )
 data class MealPlanEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-
     val recipeId: Long,
-
+    val userId: Long,
     @ColumnInfo(name = "meal_type")
     val mealType: String,
-
     val day: String
 )

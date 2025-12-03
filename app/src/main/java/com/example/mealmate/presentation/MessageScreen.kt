@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.mealmate.R
 import com.example.mealmate.presentation.common.AppBar
 import com.example.mealmate.presentation.list.ListViewModel
 
@@ -34,7 +36,8 @@ fun MessageScreen(
     var mobileNo by remember { mutableStateOf("") }
     val listData by viewModel.shoppingListItems.collectAsState()
     val context = LocalContext.current
-    val groupedItems = listData.groupBy { it.categoryName }
+    val checkedItems = listData.filter { it.isChecked }
+    val groupedItems = checkedItems.groupBy { it.categoryName }
 
     Scaffold(
         topBar = {
@@ -73,13 +76,14 @@ fun MessageScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 15.dp, start = 10.dp, end = 10.dp)
+
                 ) {
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Icon(imageVector = Icons.Default.Settings, contentDescription = null, modifier = Modifier.size(20.dp))
+                        Icon(painter= painterResource(id=R.drawable.order), contentDescription = null,tint = Color.Unspecified, modifier = Modifier.size(20.dp))
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
                             text = "Shopping List",
@@ -103,7 +107,7 @@ fun MessageScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Icon(imageVector = Icons.Default.Add, contentDescription = null, modifier = Modifier.size(30.dp))
+                                    Icon(painter= painterResource(id= R.drawable.folder), contentDescription = null,tint = Color.Unspecified,modifier = Modifier.size(20.dp))
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
                                         text = category,

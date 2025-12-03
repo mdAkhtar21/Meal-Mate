@@ -1,7 +1,7 @@
 package com.example.mealmate.data.repository
 
-import com.example.mealmate.data.local.AddRecipe.IngredientDao
-import com.example.mealmate.data.local.AddRecipe.IngredientTableEntity
+import com.example.mealmate.data.local.Ingredient.IngredientDao
+import com.example.mealmate.data.local.Ingredient.IngredientTableEntity
 import com.example.mealmate.domain.model.Ingredient
 import com.example.mealmate.domain.repository.IngredientRepository
 

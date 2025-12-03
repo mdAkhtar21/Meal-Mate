@@ -21,4 +21,7 @@ interface ShoppingListDao {
 
     @Query("SELECT * FROM shopping_list")
     fun getAllShoppingListItems(): Flow<List<ShoppingListTable>>
+
+    @Query("DELETE FROM shopping_list")
+    suspend fun deleteAllShoppingListItems()
 }

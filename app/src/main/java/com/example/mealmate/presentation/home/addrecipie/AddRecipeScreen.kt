@@ -85,6 +85,7 @@ fun AddRecipeScreen(
     viewModel: AddRecipeViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val userId by viewModel.userId.collectAsState()
     val selectedMealTypes by viewModel.selectedMealTypes.collectAsState()
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
@@ -133,6 +134,7 @@ fun AddRecipeScreen(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val scope = rememberCoroutineScope()
     val showIngredientSheet = remember { mutableStateOf(false) }
+    val showAddIngredientSheet = remember { mutableStateOf(false) }
     val showInstructionSheet = remember { mutableStateOf(false) }
     val showRecipeBottomSheet = remember { mutableStateOf(false) }
 
@@ -151,8 +153,8 @@ fun AddRecipeScreen(
                 actions = {
                     Button(
                         onClick = {
-                            // create RecipeTableEntity with proper fields
                             val recipeEntity = RecipeTableEntity(
+                                userId=userId,
                                 title = title,
                                 description = description,
                                 recipeImage = selectedImageBitmap?.let { bitmap ->
@@ -500,6 +502,7 @@ fun AddRecipeScreen(
                     sheetState = sheetState,
                     scope = scope,
                     showIngredientSheet = showIngredientSheet,
+                    showAddIngredientSheet = showAddIngredientSheet
                 )
             }
 

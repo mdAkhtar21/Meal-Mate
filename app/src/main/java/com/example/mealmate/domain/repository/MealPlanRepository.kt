@@ -1,6 +1,7 @@
 package com.example.mealmate.domain.repository
 
 import com.example.mealmate.domain.model.MealPlan
+import kotlinx.coroutines.flow.Flow
 
 interface MealPlanRepository {
     suspend fun insertMealPlans(mealPlans: List<MealPlan>): List<Long> // returns rowIds (or -1 for ignored)
@@ -10,6 +11,6 @@ interface MealPlanRepository {
     suspend fun deleteMealPlansForDay(day: String)
     suspend fun clearAllMealPlans(): Unit
     suspend fun isRecipeAlreadyAdded(day: String, recipeId: Long): MealPlan?
-
+    fun getMealPlansFlow(): Flow<List<MealPlan>>
     suspend fun updatemealPlan(mealPlan: MealPlan)
 }

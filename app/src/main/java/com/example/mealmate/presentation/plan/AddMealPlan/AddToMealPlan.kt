@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.detailScreen
+package com.example.mealmate.presentation.plan.AddMealPlan
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

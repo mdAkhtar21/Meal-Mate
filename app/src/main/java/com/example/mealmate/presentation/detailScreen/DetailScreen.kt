@@ -3,7 +3,6 @@ package com.example.mealmate.presentation.detailScreen
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,13 +20,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
@@ -56,8 +52,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.mealmate.R
-import com.example.mealmate.presentation.common.AppBar
 import com.example.mealmate.presentation.common.DetailAppBar
+import com.example.mealmate.presentation.plan.AddMealPlan.AddToMealPlan
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,6 +65,7 @@ fun DetailScreen(
     LaunchedEffect(recipeId) {
         recipeId?.let { viewModel.loadRecipeDetails(it) }
     }
+
     val recipeDetail=viewModel.recipeDetail.collectAsState().value
     val recipeTabs = listOf("Ingredient", "Instruction")
     var selectedIndex by remember { mutableStateOf(0) }
@@ -270,8 +267,8 @@ fun DetailScreen(
                 }
             }
             when(selectedIndex){
-                0->IngredeintTabScreen(recipeId,viewModel)
-                1->InstructionTabScreen(recipeId,viewModel)
+                0->IngredeintTabScreen(recipeId)
+                1->InstructionTabScreen(recipeId)
             }
         }
     }

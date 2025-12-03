@@ -28,9 +28,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.mealmate.R
 import com.example.mealmate.data.local.MealPlan.MealPlanEntity
+import com.example.mealmate.presentation.home.foryouscreen.StaticRecipeStore
+import com.example.mealmate.presentation.plan.PlanScreenViewModel
 import com.example.mealmate.presentation.plan.ShowMealPlan
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox

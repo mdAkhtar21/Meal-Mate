@@ -1,7 +1,11 @@
 package com.example.mealmate.navigation
 
+import kotlin.math.round
+
 sealed class Screen(val route:String) {
     object Login : Screen(route = "login_Screen")
+    object onboarding:Screen(route="on_boarding")
+    object onBoardingComponent:Screen(route = "on_boarding_component")
     object SignUp : Screen(route = "signUp_Screen")
     object Home : Screen(route = "home")
     object MyRecipie : Screen(route = "myrecipies")
@@ -14,5 +18,6 @@ sealed class Screen(val route:String) {
         fun passId(id: Long) = "detail_screen/$id"
     }
     object MessageScreen : Screen("message_screen")
+    object ProfileScreen:Screen("profile_screen")
 
 }

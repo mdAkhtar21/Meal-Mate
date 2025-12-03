@@ -5,6 +5,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.example.mealmate.presentation.ProfileScreen
 import com.example.mealmate.presentation.detailScreen.DetailScreen
 import com.example.mealmate.presentation.home.HomeScreen
 import com.example.mealmate.presentation.home.foryouscreen.ForYouScreen
@@ -42,6 +43,11 @@ fun NavGraphBuilder.homeNavGraph(navController: androidx.navigation.NavHostContr
         ) { backStackEntry ->
             val recipeId = backStackEntry.arguments?.getLong("recipeId") ?: 0L
             DetailScreen(recipeId = recipeId, navController = navController)
+        }
+        composable(
+            Screen.ProfileScreen.route
+        ) {
+            ProfileScreen(navController=navController)
         }
     }
 }

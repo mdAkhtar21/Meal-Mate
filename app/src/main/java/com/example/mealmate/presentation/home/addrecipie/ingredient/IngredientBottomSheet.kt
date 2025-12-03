@@ -44,17 +44,19 @@ fun IngredientBottomSheet(
     sheetState: SheetState,
     scope: CoroutineScope,
     showIngredientSheet: MutableState<Boolean>,
+    showAddIngredientSheet: MutableState<Boolean> ,
 ) {
     val ingredientViewModel: IngredientViewModel = hiltViewModel()
     val ingredients by ingredientViewModel.ingredient.collectAsState()
-    val showAddIngredientSheet = remember { mutableStateOf(false) }
+
+
 
     LaunchedEffect(showIngredientSheet.value) {
         if (showIngredientSheet.value) ingredientViewModel.loadIngredients(tempKey)
     }
 
 
-    if (showIngredientSheet.value && !showAddIngredientSheet.value) {
+    if (showIngredientSheet.value) {
         ModalBottomSheet(
             onDismissRequest = { showIngredientSheet.value = false },
             sheetState = sheetState

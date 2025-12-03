@@ -1,4 +1,4 @@
-package com.example.mealmate.presentation.list
+package com.example.mealmate.presentation.list.shoppinglist
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,14 +25,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mealmate.domain.model.ShoppingListItem
+import com.example.mealmate.presentation.list.ListViewModel
 import com.example.mealmate.presentation.plan.PlanScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 
@@ -45,12 +44,13 @@ fun ShoppingListBottomSheet(
     showBottomSheet: MutableState<Boolean>,
     planViewModel: PlanScreenViewModel = hiltViewModel(),
     shoppingViewModel: ShoppingListViewModel = hiltViewModel(),
-    listviewModel:ListViewModel= hiltViewModel()
+    listviewModel: ListViewModel = hiltViewModel()
 ) {
-    val planList by planViewModel.mealPlans.collectAsState()
+    val planMap by planViewModel.mealPlans.collectAsState()
     val ingredients by shoppingViewModel.ingredients.collectAsState()
     val shoppingList by listviewModel.shoppingListItems.collectAsState()
 
+    val planList = planMap.values.flatten()
 
     LaunchedEffect(planList) {
         val recipeIds = planList.map { it.mealPlan.recipeId }
@@ -89,7 +89,10 @@ fun ShoppingListBottomSheet(
                 modifier = Modifier.padding(bottom = 12.dp)
             )
 
-            LazyColumn {
+            LazyColumn(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
                 ingredientsByCategory.forEach { (category, ingredientsInCategory) ->
                     item {
                         Text(
@@ -125,6 +128,7 @@ fun ShoppingListBottomSheet(
                             listviewModel.insertShoppingListItem(
                                 ShoppingListItem(
                                     id = 0,
+                                    userId = listviewModel.userId.value,
                                     recipeId = ing.recipeId ?: 0L,
                                     ingredientName = ing.name,
                                     categoryName = ing.category,

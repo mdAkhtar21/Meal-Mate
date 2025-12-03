@@ -22,12 +22,14 @@ fun MyRecipie(
     LaunchedEffect(Unit) {
         viewModel.loadRecipes()
     }
-
     LazyColumn {
         items(recipeState) { item ->
             SwipeRecipe(item = item, onClick = { id ->
                 navController.navigate(Screen.DetailScreen.passId(id))
-            })
+            },
+                onDelete = {id->
+                    viewModel.deleteRecipe(item.recipe)
+                })
         }
     }
 }

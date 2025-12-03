@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 fun CustomButton(
     modifier: Modifier = Modifier,
     text: String,
-    onClick:() -> Unit,
+    onClick: () -> Unit,
     bg: Color
 ) {
     Button(

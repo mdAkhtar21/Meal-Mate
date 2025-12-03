@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MealPlanDao {
@@ -17,6 +18,10 @@ interface MealPlanDao {
 
     @Update
     suspend fun updateMealPlans(mealPlans:MealPlanEntity)
+
+    @Query("SELECT * FROM meal_plan ORDER BY day ASC")
+    fun getMealPlansFlow(): Flow<List<MealPlanEntity>>
+
 
     @Query("SELECT * FROM meal_plan WHERE day = :day AND recipeId = :recipeId LIMIT 1")
     suspend fun isRecipeAlreadyAdded(day: String, recipeId: Long): MealPlanEntity?

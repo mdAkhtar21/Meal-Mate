@@ -6,34 +6,47 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.mealmate.R
-
+import com.example.mealmate.data.local.LocalData.SampleRecipes
+import com.example.mealmate.navigation.Screen
 
 @Composable
-fun ForYouScreen(navController: NavController) {
-    val recipes = listOf(
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September"),
-        RecipeData(R.drawable.maggies, "Maggie", "2 September")
-    )
+fun ForYouScreen(
+    navController: NavController,
+    viewModel: YouRecipeViewModel= hiltViewModel()
+) {
+    val context = LocalContext.current
+    val recipeList = viewModel.recipes.collectAsState().value
+    val userId=viewModel.userId.collectAsState().value
 
-    Column(modifier = Modifier.fillMaxSize().padding(top=10.dp)) {
+    LaunchedEffect(Unit) {
+        if(StaticRecipeStore.staticRecipes.isEmpty()){
+            val recipes = SampleRecipes.getForYouRecipes(context,userId)
+            StaticRecipeStore.staticRecipes.addAll(recipes)
+        }
+        viewModel.loadRecipes()
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize().padding(top = 10.dp)
+    ) {
         LazyColumn {
-            items(recipes) { recipe ->
+            items(recipeList) { item ->
+
                 RecipeItems(
-                    image =recipe.image,
-                    name = recipe.name,
-                    date = recipe.date
+                    image = item.recipe.recipeImage,
+                    name = item.recipe.title,
+                    count = item.ingredientCount,
+                    recipeId = item.recipe.recipeId,
+                    onClick = { id ->
+                        navController.navigate(Screen.DetailScreen.passId(id))
+                    }
                 )
             }
         }

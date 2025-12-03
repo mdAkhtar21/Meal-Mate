@@ -1,32 +1,27 @@
 package com.example.mealmate.domain.repository
 
-import com.example.mealmate.data.local.AddRecipe.IngredientTableEntity
-import com.example.mealmate.data.local.AddRecipe.InstructionTableEntity
-import com.example.mealmate.data.local.AddRecipe.RecipeSource
-import com.example.mealmate.data.local.AddRecipe.RecipeTableEntity
+import com.example.mealmate.data.local.Ingredient.IngredientTableEntity
+import com.example.mealmate.data.local.Instruction.InstructionTableEntity
+import com.example.mealmate.data.local.RecipeSource.RecipeSourceEntity
+import com.example.mealmate.domain.model.RecipeTable
 
 
 interface RecipeRepository {
-
-    // Insert a full recipe with ingredients, instructions, and sources
     suspend fun insertFullRecipe(
-        recipe: RecipeTableEntity,
-        // 🌟 FIX: Simplified signature to only require the recipe and tempKey
+        recipe: RecipeTable,
         tempKey: Long
     ): Long
+    suspend fun getAllRecipes(userId: Long): List<RecipeTable>
 
-    // Fetch all recipes
-    suspend fun getAllRecipes(): List<RecipeTableEntity>
+    suspend fun getRecipeById(id: Long): RecipeTable?
 
-    // Fetch recipe by ID
-    suspend fun getRecipeById(id: Long): RecipeTableEntity?
+    suspend fun deleteRecipe(recipe: RecipeTable)
 
-    // Delete a recipe
-    suspend fun deleteRecipe(recipe: RecipeTableEntity)
+    suspend fun getRecipesByUser(userId: Long): List<RecipeTable>
 
-    // Required methods for FullRecipeDetail
+
     suspend fun getIngredientsForRecipe(recipeId: Long): List<IngredientTableEntity>
     suspend fun getInstructionsForRecipe(recipeId: Long): List<InstructionTableEntity>
-    suspend fun getSourcesForRecipe(recipeId: Long): List<RecipeSource>
+    suspend fun getSourcesForRecipe(recipeId: Long): List<RecipeSourceEntity>
 
 }

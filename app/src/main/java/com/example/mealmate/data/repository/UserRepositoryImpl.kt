@@ -1,8 +1,8 @@
 package com.example.mealmate.data.repository
 
 import com.example.mealmate.data.datastore.UserPreferences
-import com.example.mealmate.data.local.UserDao
-import com.example.mealmate.data.local.UserEntity
+import com.example.mealmate.data.local.Auth.UserDao
+import com.example.mealmate.data.local.Auth.UserEntity
 import com.example.mealmate.domain.model.User
 import com.example.mealmate.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -20,14 +20,14 @@ class UserRepositoryImpl(
             username = user.username,
             password = user.password
         )
-        userDao.insertUser(entity)
-        userPreferences.saveUser(user.email, user.username)
+       val userId=userDao.insertUser(entity)
+        userPreferences.saveUser(userId,user.email, user.username)
     }
 
     override fun getCurrentUser(): Flow<User?> {
-        return userPreferences.getUser().map { (email, username) ->
+        return userPreferences.getUser().map { (id,email, username) ->
             if (email != null && username != null) {
-                User(email = email, username = username, password = "")
+                User(id=id,email = email, username = username, password = "")
             } else null
         }
     }
