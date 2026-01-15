@@ -35,22 +35,36 @@ The app is developed using **Jetpack Compose** and follows **MVVM architecture**
 - **Unidirectional Data Flow**
 
 
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/onBoardingScreen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/SignIn.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Register_Screen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Profile.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Plan_Screen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/List_Screen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Message_Screen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/For_You_Screen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/My_Recipe.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/DetailScreen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Add_Meal_Plan.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Add_Recipe.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Add_Ingredient.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Edit_Screen.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Instruction.jpeg" width="300"/>
-<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Show_Ingredient.jpeg" width="300"/>
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/onBoardingScreen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/SignIn.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Register_Screen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Profile.jpeg" width="220"/>
+
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Plan_Screen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/List_Screen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Message_Screen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/For_You_Screen.jpeg" width="220"/>
+
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/My_Recipe.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/DetailScreen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Add_Meal_Plan.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Add_Recipe.jpeg" width="220"/>
+
+<br/><br/>
+
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Add_Ingredient.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Edit_Screen.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Instruction.jpeg" width="220"/>
+<img src="https://raw.githubusercontent.com/mdAkhtar21/Meal-Mate/master/images/Show_Ingredient.jpeg" width="220"/>
+
+</div>
+
 
 
 
