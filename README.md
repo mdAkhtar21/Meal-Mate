@@ -65,6 +65,14 @@ The app is developed using **Jetpack Compose** and follows **MVVM architecture**
 
 </div>
 
+## 📥 Download
 
+👉 📲 Click here to download **Meal-Mate App (APK)**
 
+<a href="https://github.com/mdAkhtar21/Meal-Mate/releases/download/v1.0/Meal_Mate.apk">
+  <img src="https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android">
+</a>
 
+🔹 [⬇️ Download Latest Version](https://github.com/mdAkhtar21/Meal-Mate/releases/latest)
+
+⚠️ Enable **Install from Unknown Sources** before installing the app.
